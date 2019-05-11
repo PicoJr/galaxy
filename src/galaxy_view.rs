@@ -21,6 +21,7 @@ impl GalaxyViewSettings {
         GalaxyViewSettings::from_config(&Config::default())
     }
 
+    /// Creates a new galaxy view settings from config
     pub fn from_config(config: &Config) -> GalaxyViewSettings {
         GalaxyViewSettings {
             planet_color: config.planet_color
@@ -42,10 +43,12 @@ impl GalaxyView {
         }
     }
 
+    /// Creates a default galaxy view
     pub fn default() -> GalaxyView {
         GalaxyView::new(GalaxyViewSettings::default())
     }
 
+    /// Creates a galaxy view from config
     pub fn from_config(config: &Config) -> GalaxyView {
         GalaxyView::new(GalaxyViewSettings::from_config(config))
     }

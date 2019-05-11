@@ -46,11 +46,12 @@ pub struct Galaxy {
 }
 
 impl Galaxy {
-    /// create a new galaxy
+    /// Creates a new galaxy.
     pub fn default() -> Galaxy {
         Galaxy::from_config(&Config::default())
     }
 
+    /// Creates a new galaxy from config.
     pub fn from_config(config: &Config) -> Galaxy {
         Galaxy {
             planets: config.planets.clone()

@@ -21,11 +21,12 @@ pub struct Camera {
 }
 
 impl Camera {
-    /// returns default camera
+    /// Creates default camera.
     pub fn default() -> Camera {
         Camera::from_config(&Config::default())
     }
 
+    /// Creates a new Camera from config.
     pub fn from_config(config: &Config) -> Camera {
         Camera {
             zoom: config.default_zoom,

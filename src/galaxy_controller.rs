@@ -59,8 +59,7 @@ fn intersect(planet: &Planet, other_planet: &Planet) -> bool {
 
 
 impl GalaxyController {
-
-    /// Creates a new galaxy controller
+    /// Creates a new galaxy controller.
     pub fn new(galaxy: Galaxy, camera: Camera, settings: GalaxySettings) -> GalaxyController {
         GalaxyController {
             galaxy,
@@ -69,6 +68,7 @@ impl GalaxyController {
         }
     }
 
+    /// Creates a new galaxy controller from config.
     pub fn from_config(config: &Config) -> GalaxyController {
         GalaxyController::new(Galaxy::from_config(config), Camera::from_config(config), GalaxySettings::from_config(config))
     }
