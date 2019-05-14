@@ -3,7 +3,6 @@
 use graphics::{Context, Graphics};
 use graphics::Ellipse;
 use graphics::ellipse::circle;
-use graphics::Transformed;
 use graphics::types::Color;
 
 use crate::config::Config;
@@ -61,7 +60,7 @@ impl GalaxyView {
         let planets = &controller.galaxy.planets;
         let disc = Ellipse::new(settings.planet_color);
 
-        let transform = c.trans(-controller.camera.position[0], -controller.camera.position[1]).zoom(controller.camera.zoom).transform;
+        let transform = controller.camera.world_to_view_transform(c.transform);
 
         for planet in planets.iter() {
             disc.draw(circle(planet.position[0], planet.position[1], planet.r), &c.draw_state, transform, g);

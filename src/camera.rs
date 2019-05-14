@@ -1,6 +1,7 @@
 //! Camera: position and zoom
 
-use graphics::math::{Scalar, Vec2d};
+use graphics::math::{identity, Matrix2d, Scalar, transform_pos, Vec2d};
+use graphics::Transformed;
 
 use crate::config::Config;
 
@@ -35,4 +36,17 @@ impl Camera {
             camera_speed: config.camera_speed,
         }
     }
+
+    /// convert world to view
+    pub fn world_to_view_transform(&self, transform: Matrix2d) -> Matrix2d {
+        transform.trans(-self.position[0], -self.position[1]).zoom(self.zoom)
+    }
+
+    /// convert view (screen) position to world position
+    pub fn view_to_world_position(&self, position: Vec2d<Scalar>) -> Vec2d<Scalar> {
+        let transform = identity();
+        let transform = transform.zoom(1. / self.zoom).trans(self.position[0], self.position[1]);
+        transform_pos(transform, position)
+    }
+
 }

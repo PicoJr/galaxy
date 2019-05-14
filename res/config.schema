@@ -1,0 +1,266 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://example.com/root.json",
+  "type": "object",
+  "title": "The Root Schema",
+  "required": [
+    "gravity",
+    "softening_factor",
+    "restitution_factor",
+    "zoom_factor",
+    "default_zoom",
+    "camera_speed",
+    "camera_position",
+    "frame_time_step",
+    "background_color",
+    "planet_color",
+    "planet_radius",
+    "planets"
+  ],
+  "properties": {
+    "gravity": {
+      "$id": "#/properties/gravity",
+      "type": "number",
+      "title": "The Gravity Schema",
+      "default": 0.0,
+      "examples": [
+        0.05
+      ]
+    },
+    "softening_factor": {
+      "$id": "#/properties/softening_factor",
+      "type": "number",
+      "title": "The Softening_factor Schema",
+      "default": 0.0,
+      "examples": [
+        0.01
+      ]
+    },
+    "restitution_factor": {
+      "$id": "#/properties/restitution_factor",
+      "type": "number",
+      "title": "The Restitution_factor Schema",
+      "default": 0.0,
+      "examples": [
+        0.5
+      ]
+    },
+    "zoom_factor": {
+      "$id": "#/properties/zoom_factor",
+      "type": "number",
+      "title": "The Zoom_factor Schema",
+      "default": 0.0,
+      "examples": [
+        2.0
+      ]
+    },
+    "default_zoom": {
+      "$id": "#/properties/default_zoom",
+      "type": "number",
+      "title": "The Default_zoom Schema",
+      "default": 0.0,
+      "examples": [
+        2.0
+      ]
+    },
+    "camera_speed": {
+      "$id": "#/properties/camera_speed",
+      "type": "number",
+      "title": "The Camera_speed Schema",
+      "default": 0.0,
+      "examples": [
+        8.0
+      ]
+    },
+    "camera_position": {
+      "$id": "#/properties/camera_position",
+      "type": "object",
+      "title": "The Camera_position Schema",
+      "required": [
+        "x",
+        "y"
+      ],
+      "properties": {
+        "x": {
+          "$id": "#/properties/camera_position/properties/x",
+          "type": "number",
+          "title": "The X Schema",
+          "default": 0.0,
+          "examples": [
+            -50.0
+          ]
+        },
+        "y": {
+          "$id": "#/properties/camera_position/properties/y",
+          "type": "number",
+          "title": "The Y Schema",
+          "default": 0.0,
+          "examples": [
+            -50.0
+          ]
+        }
+      }
+    },
+    "frame_time_step": {
+      "$id": "#/properties/frame_time_step",
+      "type": "number",
+      "title": "The Frame_time_step Schema",
+      "default": 0.0,
+      "examples": [
+        0.2
+      ]
+    },
+    "background_color": {
+      "$id": "#/properties/background_color",
+      "type": "object",
+      "title": "The Background_color Schema",
+      "required": [
+        "r",
+        "g",
+        "b",
+        "a"
+      ],
+      "properties": {
+        "r": {
+          "$id": "#/properties/background_color/properties/r",
+          "type": "number",
+          "title": "The R Schema",
+          "default": 0.0,
+          "examples": [
+            0.2
+          ]
+        },
+        "g": {
+          "$id": "#/properties/background_color/properties/g",
+          "type": "number",
+          "title": "The G Schema",
+          "default": 0.0,
+          "examples": [
+            0.2
+          ]
+        },
+        "b": {
+          "$id": "#/properties/background_color/properties/b",
+          "type": "number",
+          "title": "The B Schema",
+          "default": 0.0,
+          "examples": [
+            0.2
+          ]
+        },
+        "a": {
+          "$id": "#/properties/background_color/properties/a",
+          "type": "number",
+          "title": "The A Schema",
+          "default": 0.0,
+          "examples": [
+            1.0
+          ]
+        }
+      }
+    },
+    "planet_color": {
+      "$id": "#/properties/planet_color",
+      "type": "object",
+      "title": "The Planet_color Schema",
+      "required": [
+        "r",
+        "g",
+        "b",
+        "a"
+      ],
+      "properties": {
+        "r": {
+          "$id": "#/properties/planet_color/properties/r",
+          "type": "number",
+          "title": "The R Schema",
+          "default": 0.0,
+          "examples": [
+            1.0
+          ]
+        },
+        "g": {
+          "$id": "#/properties/planet_color/properties/g",
+          "type": "number",
+          "title": "The G Schema",
+          "default": 0.0,
+          "examples": [
+            0.6
+          ]
+        },
+        "b": {
+          "$id": "#/properties/planet_color/properties/b",
+          "type": "number",
+          "title": "The B Schema",
+          "default": 0.0,
+          "examples": [
+            0.0
+          ]
+        },
+        "a": {
+          "$id": "#/properties/planet_color/properties/a",
+          "type": "number",
+          "title": "The A Schema",
+          "default": 0.0,
+          "examples": [
+            1.0
+          ]
+        }
+      }
+    },
+    "planet_radius": {
+      "$id": "#/properties/planet_radius",
+      "type": "number",
+      "title": "The Planet_radius Schema",
+      "default": 0.0,
+      "examples": [
+        20.0
+      ]
+    },
+    "planets": {
+      "$id": "#/properties/planets",
+      "type": "array",
+      "title": "The Planets Schema",
+      "items": {
+        "$id": "#/properties/planets/items",
+        "type": "object",
+        "title": "The Items Schema",
+        "required": [
+          "x",
+          "y",
+          "r"
+        ],
+        "properties": {
+          "x": {
+            "$id": "#/properties/planets/items/properties/x",
+            "type": "number",
+            "title": "The X Schema",
+            "default": 0.0,
+            "examples": [
+              0.0
+            ]
+          },
+          "y": {
+            "$id": "#/properties/planets/items/properties/y",
+            "type": "number",
+            "title": "The Y Schema",
+            "default": 0.0,
+            "examples": [
+              0.0
+            ]
+          },
+          "r": {
+            "$id": "#/properties/planets/items/properties/r",
+            "type": "number",
+            "title": "The R Schema",
+            "default": 0.0,
+            "examples": [
+              40.0
+            ]
+          }
+        }
+      }
+    }
+  }
+}

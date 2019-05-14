@@ -39,6 +39,8 @@ pub struct Config {
     /// planet color
     /// e.g. [1., 0., 0., 0.8] => RED with 0.8 opacity
     pub planet_color: Color,
+    /// default planet radius > 0.
+    pub planet_radius: Scalar,
     /// planets
     pub planets: Vec<Planet>,
 }
@@ -61,6 +63,7 @@ impl Config {
             frame_time_step: 0.1,
             background_color: [0.2, 0.2, 0.2, 1.0],
             planet_color: [1.0, 0.6, 0.0, 1.0],
+            planet_radius: 10.,
             planets
         }
     }
@@ -131,6 +134,7 @@ impl Config {
             frame_time_step: Config::get_scalar_or(&json["frame_time_step"], default_config.frame_time_step),
             background_color: Config::get_rgba_or(&json["background_color"], default_config.background_color),
             planet_color: Config::get_rgba_or(&json["planet_color"], default_config.planet_color),
+            planet_radius: Config::get_scalar_or(&json["planet_radius"], default_config.planet_radius),
             planets: Config::get_planets_or(&json["planets"], default_config.planets),
         }
     }

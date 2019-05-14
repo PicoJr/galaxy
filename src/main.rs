@@ -12,8 +12,8 @@ use std::fs::File;
 use glutin_window::GlutinWindow;
 use graphics::clear;
 use opengl_graphics::{GlGraphics, OpenGL};
-use piston::event_loop::{Events, EventSettings};
-use piston::input::RenderEvent;
+use piston::event_loop::{EventLoop, Events, EventSettings};
+use piston::input::{RenderEvent, UpdateEvent};
 use piston::window::WindowSettings;
 
 pub use crate::camera::Camera;
@@ -43,7 +43,7 @@ fn main() {
     let mut window: GlutinWindow = settings.build()
       .expect("Could not create window");
 
-    let mut events = Events::new(EventSettings::new());
+    let mut events = Events::new(EventSettings::new().ups(120).max_fps(60));
     let mut gl = GlGraphics::new(opengl);
 
 
@@ -52,7 +52,9 @@ fn main() {
 
     while let Some(e) = events.next(&mut window) {
         galaxy_controller.event(&e);
-        galaxy_controller.update(config.frame_time_step);
+        if let Some(_args) = e.update_args() {
+            galaxy_controller.update(config.frame_time_step);
+        }
         if let Some(args) = e.render_args() {
             gl.draw(args.viewport(), |c, g| {
                 clear(config.background_color, g);

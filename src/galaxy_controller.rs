@@ -1,7 +1,7 @@
 // ! galaxy controller (handles event)
 
 use graphics::math::{add, dot, mul_scalar, Scalar, square_len, sub, Vec2d};
-use piston::input::{Button, Key};
+use piston::input::{Button, Key, MouseButton};
 use piston::input::GenericEvent;
 
 use crate::camera::Camera;
@@ -13,6 +13,7 @@ pub struct GalaxySettings {
     pub gravity: Scalar,
     pub softening_factor: Scalar,
     pub restitution_factor: Scalar,
+    pub planet_radius: Scalar,
 }
 
 impl GalaxySettings {
@@ -21,6 +22,7 @@ impl GalaxySettings {
             gravity: config.gravity,
             softening_factor: config.softening_factor,
             restitution_factor: config.restitution_factor,
+            planet_radius: config.planet_radius,
         }
     }
 }
@@ -33,6 +35,8 @@ pub struct GalaxyController {
     pub camera: Camera,
     /// galaxy physic settings
     pub settings: GalaxySettings,
+    /// mouse cursor position
+    pub cursor: Vec2d<Scalar>,
 }
 
 #[cfg(test)]
@@ -65,6 +69,7 @@ impl GalaxyController {
             galaxy,
             camera,
             settings,
+            cursor: [0.; 2],
         }
     }
 
@@ -159,6 +164,9 @@ impl GalaxyController {
 
     /// Handles events.
     pub fn event<E: GenericEvent>(&mut self, e: &E) {
+        if let Some(pos) = e.mouse_cursor_args() {
+            self.cursor = pos;
+        }
         match e.press_args() {
             Some(Button::Keyboard(Key::Left)) => self.camera.position = add(self.camera.position, [-self.camera.camera_speed, 0.]),
             Some(Button::Keyboard(Key::Right)) => self.camera.position = add(self.camera.position, [self.camera.camera_speed, 0.]),
@@ -166,6 +174,12 @@ impl GalaxyController {
             Some(Button::Keyboard(Key::Down)) => self.camera.position = add(self.camera.position, [0., self.camera.camera_speed]),
             Some(Button::Keyboard(Key::PageDown)) => self.camera.zoom /= self.camera.zoom_factor,
             Some(Button::Keyboard(Key::PageUp)) => self.camera.zoom *= self.camera.zoom_factor,
+            Some(Button::Mouse(MouseButton::Left)) => {
+                let v = self.camera.view_to_world_position(self.cursor);
+                self.galaxy.planets.push(
+                    Planet::default(v[0], v[1], self.settings.planet_radius, self.galaxy.planets.len())
+                );
+            },
             _ => ()
         }
     }
