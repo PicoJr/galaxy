@@ -3,6 +3,7 @@
 extern crate serde_json;
 
 use std::fs::File;
+use std::path::Path;
 
 use graphics::math::{Scalar, Vec2d};
 use graphics::types::Color;
@@ -39,6 +40,8 @@ pub struct Config {
     /// planet color
     /// e.g. [1., 0., 0., 0.8] => RED with 0.8 opacity
     pub planet_color: Color,
+    /// planet texture path
+    pub planet_texture_path: Option<String>,
     /// default planet radius > 0.
     pub planet_radius: Scalar,
     /// planets
@@ -63,6 +66,7 @@ impl Config {
             frame_time_step: 0.1,
             background_color: [0.2, 0.2, 0.2, 1.0],
             planet_color: [1.0, 0.6, 0.0, 1.0],
+            planet_texture_path: None,
             planet_radius: 10.,
             planets
         }
@@ -119,6 +123,13 @@ impl Config {
         }
     }
 
+    fn get_path_or(json: &serde_json::Value, default_value: Option<String>) -> Option<String> {
+        match json {
+            serde_json::Value::String(path) => Some(path.clone()),
+            _ => default_value.clone()
+        }
+    }
+
     pub fn from_json(json_file: File) -> Config {
         let default_config = Config::default();
         let json: serde_json::Value = serde_json::from_reader(json_file).expect("file should have proper JSON");
@@ -134,8 +145,19 @@ impl Config {
             frame_time_step: Config::get_scalar_or(&json["frame_time_step"], default_config.frame_time_step),
             background_color: Config::get_rgba_or(&json["background_color"], default_config.background_color),
             planet_color: Config::get_rgba_or(&json["planet_color"], default_config.planet_color),
+            planet_texture_path: Config::get_path_or(&json["planet_texture_path"], default_config.planet_texture_path),
             planet_radius: Config::get_scalar_or(&json["planet_radius"], default_config.planet_radius),
             planets: Config::get_planets_or(&json["planets"], default_config.planets),
+        }
+    }
+
+    pub fn from_path(path: &Path) -> Config {
+        match File::open(path) {
+            Ok(json_file) => Config::from_json(json_file),
+            Err(_) => {
+                println!("could not open {}, using default config instead", path.to_string_lossy());
+                Config::default()
+            },
         }
     }
 }

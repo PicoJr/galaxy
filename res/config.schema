@@ -209,6 +209,16 @@
         }
       }
     },
+    "planet_texture_path": {
+          "$id": "#/properties/planet_texture_path",
+          "type": "string",
+          "title": "The Planet_texture_path Schema",
+          "default": "",
+          "examples": [
+            "res/earth_256.png"
+          ],
+          "pattern": "^(.*).png$"
+    },
     "planet_radius": {
       "$id": "#/properties/planet_radius",
       "type": "number",

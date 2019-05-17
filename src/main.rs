@@ -7,7 +7,7 @@ extern crate graphics;
 extern crate opengl_graphics;
 extern crate piston;
 
-use std::fs::File;
+use std::path::Path;
 
 use glutin_window::GlutinWindow;
 use graphics::clear;
@@ -30,13 +30,7 @@ mod config;
 
 fn main() {
     let opengl = OpenGL::V3_2;
-    let config = match File::open("res/config.json") {
-        Ok(json_file) => Config::from_json(json_file),
-        Err(_) => {
-            println!("could not open res/config.json, using default config instead");
-            Config::default()
-        },
-    };
+    let config = Config::from_path(Path::new("res/config.json"));
     let settings = WindowSettings::new("Galaxy", config.window_size)
         .opengl(opengl)
         .exit_on_esc(true);
@@ -45,7 +39,6 @@ fn main() {
 
     let mut events = Events::new(EventSettings::new().ups(120).max_fps(60));
     let mut gl = GlGraphics::new(opengl);
-
 
     let mut galaxy_controller = GalaxyController::from_config(&config);
     let galaxy_view = GalaxyView::from_config(&config);
