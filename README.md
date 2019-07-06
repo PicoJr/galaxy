@@ -1,5 +1,7 @@
 # Highly Inaccurate Galaxy Simulation
 
+[![](https://tokei.rs/b1/github/PicoJr/galaxy)](https://github.com/PicoJr/galaxy).
+
 A simplistic galaxy simulation: gravitational forces + collisions.
 
 ![screencast.gif](res/screencast.gif)
